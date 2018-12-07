@@ -1,0 +1,272 @@
+{
+    "type":"bubble",
+    "body": {
+      "type": "box",
+      "layout": "vertical",
+      "contents": [
+        {
+          "type": "text",
+          "text": "Git Dev",
+          "weight": "bold",
+          "wrap": false,
+          "color": "#1DB446",
+          "flex": 1,
+          "size": "sm",
+          "margin": "none",
+          "align": "start",
+          "gravity": "top"
+        },
+        {
+          "type": "text",
+          "text": "'$DRONE_REPO_NAME'",
+          "weight": "bold",
+          "wrap": false,
+          "color": "#464646",
+          "flex": 1,
+          "size": "xxl",
+          "margin": "md",
+          "align": "start",
+          "gravity": "top"
+        },
+        {
+          "type": "text",
+          "text": "'$DRONE_COMMIT_MESSAGE'",
+          "weight": "regular",
+          "wrap": true,
+          "color": "#aaaaaa",
+          "flex": 1,
+          "size": "xs",
+          "margin": "md",
+          "align": "start",
+          "gravity": "top"
+        },
+        {
+          "type": "separator",
+          "margin": "md",
+          "color": "#555555"
+        },
+        {
+          "type": "box",
+          "layout": "vertical",
+          "contents": [
+            {
+              "type": "box",
+              "layout": "horizontal",
+              "contents": [
+                {
+                  "type": "text",
+                  "text": "Branch",
+                  "weight": "regular",
+                  "wrap": false,
+                  "color": "#555555",
+                  "flex": 0,
+                  "size": "sm",
+                  "margin": "none",
+                  "align": "start",
+                  "gravity": "top"
+                },
+                {
+                  "type": "text",
+                  "text": "'$DRONE_COMMIT_BRANCH'",
+                  "weight": "regular",
+                  "wrap": false,
+                  "color": "#111111",
+                  "flex": 1,
+                  "size": "sm",
+                  "margin": "none",
+                  "align": "end",
+                  "gravity": "top"
+                }
+              ],
+              "flex": 1,
+              "spacing": "none",
+              "margin": "md"
+            },
+            {
+              "type": "box",
+              "layout": "horizontal",
+              "contents": [
+                {
+                  "type": "text",
+                  "text": "Event",
+                  "weight": "regular",
+                  "wrap": false,
+                  "color": "#555555",
+                  "flex": 0,
+                  "size": "sm",
+                  "margin": "none",
+                  "align": "start",
+                  "gravity": "top"
+                },
+                {
+                  "type": "text",
+                  "text": "'$DRONE_BUILD_EVENT'",
+                  "weight": "regular",
+                  "wrap": false,
+                  "color": "#111111",
+                  "flex": 1,
+                  "size": "sm",
+                  "margin": "none",
+                  "align": "end",
+                  "gravity": "top"
+                }
+              ],
+              "flex": 1,
+              "spacing": "none",
+              "margin": "md"
+            },
+            {
+              "type": "box",
+              "layout": "horizontal",
+              "contents": [
+                {
+                  "type": "text",
+                  "text": "Author",
+                  "weight": "regular",
+                  "wrap": false,
+                  "color": "#555555",
+                  "flex": 0,
+                  "size": "sm",
+                  "margin": "none",
+                  "align": "start",
+                  "gravity": "top"
+                },
+                {
+                  "type": "text",
+                  "text": "'$DRONE_COMMIT_AUTHOR'",
+                  "weight": "regular",
+                  "wrap": false,
+                  "color": "#111111",
+                  "flex": 1,
+                  "size": "sm",
+                  "margin": "none",
+                  "align": "end",
+                  "gravity": "top"
+                }
+              ],
+              "flex": 1,
+              "spacing": "none",
+              "margin": "md"
+            },
+            {
+              "type": "box",
+              "layout": "horizontal",
+              "contents": [
+                {
+                  "type": "text",
+                  "text": "Build Number",
+                  "weight": "regular",
+                  "wrap": false,
+                  "color": "#555555",
+                  "flex": 1,
+                  "size": "sm",
+                  "margin": "none",
+                  "align": "start",
+                  "gravity": "top"
+                },
+                {
+                  "type": "text",
+                  "text": "'$CI_BUILD_NUMBER'",
+                  "weight": "regular",
+                  "wrap": false,
+                  "color": "#111111",
+                  "flex": 1,
+                  "size": "sm",
+                  "margin": "none",
+                  "align": "end",
+                  "gravity": "top"
+                }
+              ],
+              "flex": 1,
+              "spacing": "none",
+              "margin": "md"
+            },
+            {
+              "type": "box",
+              "layout": "horizontal",
+              "contents": [
+                {
+                  "type": "text",
+                  "text": "Build Status",
+                  "weight": "regular",
+                  "wrap": false,
+                  "color": "#555555",
+                  "flex": 1,
+                  "size": "sm",
+                  "margin": "none",
+                  "align": "start",
+                  "gravity": "top"
+                },
+                {
+                  "type": "text",
+                  "text": "'$DRONE_BUILD_STATUS'",
+                  "weight": "regular",
+                  "wrap": false,
+                  "color": "#111111",
+                  "flex": 1,
+                  "size": "sm",
+                  "margin": "none",
+                  "align": "end",
+                  "gravity": "top"
+                }
+              ],
+              "flex": 1,
+              "spacing": "none",
+              "margin": "md"
+            }
+          ],
+          "flex": 1,
+          "spacing": "none",
+          "margin": "md"
+        },
+        {
+          "type": "box",
+          "layout": "horizontal",
+          "contents": [
+            {
+              "type": "button",
+              "action": {
+                "type": "uri",
+                "label": "See Changes",
+                "uri": "https://test.jack.is.so.cute.tw"
+              },
+              "flex": 1,
+              "margin": "none",
+              "height": "md",
+              "style": "primary",
+              "color": "#9b9b9b",
+              "gravity": "center"
+            }
+          ],
+          "flex": 1,
+          "spacing": "none",
+          "margin": "xxl"
+        }
+      ],
+      "flex": 1,
+      "spacing": "none",
+      "margin": "md"
+    },
+    "styles": {
+      "header": {
+        "backgroundColor": "#FFFFFF",
+        "separator": false,
+        "separatorColor": "#FFFFFF"
+      },
+      "hero": {
+        "backgroundColor": "#FFFFFF",
+        "separator": false,
+        "separatorColor": "#FFFFFF"
+      },
+      "body": {
+        "backgroundColor": "#FFFFFF",
+        "separator": false,
+        "separatorColor": "#FFFFFF"
+      },
+      "footer": {
+        "backgroundColor": "#FFFFFF",
+        "separator": false,
+        "separatorColor": "#FFFFFF"
+      }
+    }
+  }
