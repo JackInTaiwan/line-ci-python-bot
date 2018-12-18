@@ -39,14 +39,15 @@
         "height": "sm"
         },
         {
-        "type": "button",
-        "action": {
-            "type": "message",
-            "label": "退出",
-            "text": "我要退出{{project_name}}，嗚嗚..."
-        },
-        "color": "#A89E9E",
-        "height": "sm"
+            "type": "button",
+            "action": {
+              "type": "message",
+              "label": "退出",
+              "text": "我要退出{{project_name}}，嗚嗚..."
+            },
+            "color": "#B6B0B0",
+            "height": "sm",
+            "style": "link"
         }
     ]
     }
