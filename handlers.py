@@ -136,7 +136,7 @@ def join_repo(user_id, group_id, repo_name):
         
         collection = MongoClient(env["mongo"]["url"])[env["mongo"]["db"]][env["mongo"]["collection"]]
         repo = collection.find_one({"repo_name": repo_name})
-        if len(repo) != 0:
+        if repo != None:
             print("[DEBUG][join_repo] use update")
             repo["users"].append({
                 "user_name": user_name,
