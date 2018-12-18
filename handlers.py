@@ -1,18 +1,20 @@
 from flask import Flask, request
-from linebot import (
-    LineBotApi,
-    WebhookHandler,
-)
+from linebot import LineBotApi, WebhookHandler
+from jinja2 import Environment, FileSystemLoader, select_autoescape
+import random
+import json
+
 from linebot.models import (
     MessageEvent,
     FlexSendMessage,
+    TextMessage,
     BubbleContainer,
 )
 
-import json
 
 
 
+BOT_NAME = "tool"
 CHANNEL_TOKEN = "TB5yHtCgFd4bpv74W5C5cBwPVHwjST5/6NntK68od4OTbL2xKqcFja76Yb86BkVtd9AXK431eE7Gs3AfS4yQp573YGXc5U+Llq4g0NKZq5AWCbtoUe3M597QXJfc63ow8fggSRXSp/84MQadzhxeWQdB04t89/1O/w1cDnyilFU="
 CHANNEL_SECRET = "c80566dca51b314332768ca929117904"
 FLEX_JSON_FP = "./template/flex.json"
@@ -22,21 +24,55 @@ handler = WebhookHandler(CHANNEL_SECRET)
 app = Flask(__name__)
 
 
+
 @app.route("/ci", methods=["POST"])
 def ci_post():
+    template_env = Environment(
+        loader=FileSystemLoader('./'),
+        autoescape=select_autoescape(['json'])
+    )
     data = request.json
-    drone_repo_name = data["drone_repo_name"] if "drone_repo_name" in data else ""
-    drone_commit_branch = data["drone_commit_branch"] if "drone_commit_branch" in data else ""
-    drone_commit_author = data["drone_commit_author"] if "drone_commit_author" in data else ""
-    drone_commit_message = data["drone_commit_message"] if "drone_commit_message" in data else ""
-    drone_commit_buildevent = data["drone_commit_buildevent"] if "drone_commit_buildevent" in data else ""
-    drone_commit_status = data["drone_commit_status"] if "drone_commit_status" in data else ""
-    drone_commit_link = data["drone_commit_link"] if "drone_commit_link" in data else ""
-    #json = {"type":"bubble","body":{"type":"box","layout":"vertical","contents":[{"type":"text","text":"Git Dev","weight":"bold","wrap":False,"color":"#1DB446","flex":1,"size":"sm","margin":"none","align":"start","gravity":"top"},{"type":"text","text":"DRONE_REPO_NAME","weight":"bold","wrap":False,"color":"#464646","flex":1,"size":"xxl","margin":"md","align":"start","gravity":"top"},{"type":"text","text":"DRONE_COMMIT_MESSAGE","weight":"regular","wrap":True,"color":"#aaaaaa","flex":1,"size":"xs","margin":"md","align":"start","gravity":"top"},{"type":"separator","margin":"md","color":"#555555"},{"type":"box","layout":"vertical","contents":[{"type":"box","layout":"horizontal","contents":[{"type":"text","text":"Branch","weight":"regular","wrap":False,"color":"#555555","flex":0,"size":"sm","margin":"none","align":"start","gravity":"top"},{"type":"text","text":"DRONE_COMMIT_BRANCH","weight":"regular","wrap":False,"color":"#111111","flex":1,"size":"sm","margin":"none","align":"end","gravity":"top"}],"flex":1,"spacing":"none","margin":"md"},{"type":"box","layout":"horizontal","contents":[{"type":"text","text":"Event","weight":"regular","wrap":False,"color":"#555555","flex":0,"size":"sm","margin":"none","align":"start","gravity":"top"},{"type":"text","text":"DRONE_BUILD_EVENT","weight":"regular","wrap":False,"color":"#111111","flex":1,"size":"sm","margin":"none","align":"end","gravity":"top"}],"flex":1,"spacing":"none","margin":"md"},{"type":"box","layout":"horizontal","contents":[{"type":"text","text":"Author","weight":"regular","wrap":False,"color":"#555555","flex":0,"size":"sm","margin":"none","align":"start","gravity":"top"},{"type":"text","text":"DRONE_COMMIT_AUTHOR","weight":"regular","wrap":False,"color":"#111111","flex":1,"size":"sm","margin":"none","align":"end","gravity":"top"}],"flex":1,"spacing":"none","margin":"md"},{"type":"box","layout":"horizontal","contents":[{"type":"text","text":"Build Number","weight":"regular","wrap":False,"color":"#555555","flex":1,"size":"sm","margin":"none","align":"start","gravity":"top"},{"type":"text","text":"CI_BUILD_NUMBER","weight":"regular","wrap":False,"color":"#111111","flex":1,"size":"sm","margin":"none","align":"end","gravity":"top"}],"flex":1,"spacing":"none","margin":"md"},{"type":"box","layout":"horizontal","contents":[{"type":"text","text":"Build Status","weight":"regular","wrap":False,"color":"#555555","flex":1,"size":"sm","margin":"none","align":"start","gravity":"top"},{"type":"text","text":"DRONE_BUILD_STATUS","weight":"regular","wrap":False,"color":"#111111","flex":1,"size":"sm","margin":"none","align":"end","gravity":"top"}],"flex":1,"spacing":"none","margin":"md"}],"flex":1,"spacing":"none","margin":"md"},{"type":"box","layout":"horizontal","contents":[{"type":"button","action":{"type":"uri","label":"See Changes","uri":"https://twst.tewst.tw"},"flex":1,"margin":"none","height":"md","style":"primary","color":"#9b9b9b","gravity":"center"}],"flex":1,"spacing":"none","margin":"xxl"}],"flex":1,"spacing":"none","margin":"md"},"styles":{"header":{"backgroundColor":"#FFFFFF","separator":False,"separatorColor":"#FFFFFF"},"hero":{"backgroundColor":"#FFFFFF","separator":False,"separatorColor":"#FFFFFF"},"body":{"backgroundColor":"#FFFFFF","separator":False,"separatorColor":"#FFFFFF"},"footer":{"backgroundColor":"#FFFFFF","separator":False,"separatorColor":"#FFFFFF"}}}
-    #json = {"type":"bubble","body":{"type":"box","layout":"vertical","contents":[{"type":"text","text":"Git Dev","weight":"bold","wrap":False,"color":"#1DB446","flex":1,"size":"sm","margin":"none","align":"start","gravity":"top"},{"type":"text","text":"DRONE_REPO_NAME","weight":"bold","wrap":False,"color":"#464646","flex":1,"size":"xxl","margin":"md","align":"start","gravity":"top"},{"type":"text","text":"DRONE_COMMIT_MESSAGE","weight":"regular","wrap":True,"color":"#aaaaaa","flex":1,"size":"xs","margin":"md","align":"start","gravity":"top"},{"type":"separator","margin":"md","color":"#555555"},{"type":"box","layout":"vertical","contents":[{"type":"box","layout":"horizontal","contents":[{"type":"text","text":"Branch","weight":"regular","wrap":False,"color":"#555555","flex":0,"size":"sm","margin":"none","align":"start","gravity":"top"},{"type":"text","text":"DRONE_COMMIT_BRANCH","weight":"regular","wrap":False,"color":"#111111","flex":1,"size":"sm","margin":"none","align":"end","gravity":"top"}],"flex":1,"spacing":"none","margin":"md"},{"type":"box","layout":"horizontal","contents":[{"type":"text","text":"Event","weight":"regular","wrap":False,"color":"#555555","flex":0,"size":"sm","margin":"none","align":"start","gravity":"top"},{"type":"text","text":"DRONE_BUILD_EVENT","weight":"regular","wrap":False,"color":"#111111","flex":1,"size":"sm","margin":"none","align":"end","gravity":"top"}],"flex":1,"spacing":"none","margin":"md"},{"type":"box","layout":"horizontal","contents":[{"type":"text","text":"Author","weight":"regular","wrap":False,"color":"#555555","flex":0,"size":"sm","margin":"none","align":"start","gravity":"top"},{"type":"text","text":"DRONE_COMMIT_AUTHOR","weight":"regular","wrap":False,"color":"#111111","flex":1,"size":"sm","margin":"none","align":"end","gravity":"top"}],"flex":1,"spacing":"none","margin":"md"},{"type":"box","layout":"horizontal","contents":[{"type":"text","text":"Build Number","weight":"regular","wrap":False,"color":"#555555","flex":1,"size":"sm","margin":"none","align":"start","gravity":"top"},{"type":"text","text":"CI_BUILD_NUMBER","weight":"regular","wrap":False,"color":"#111111","flex":1,"size":"sm","margin":"none","align":"end","gravity":"top"}],"flex":1,"spacing":"none","margin":"md"},{"type":"box","layout":"horizontal","contents":[{"type":"text","text":"Build Status","weight":"regular","wrap":False,"color":"#555555","flex":1,"size":"sm","margin":"none","align":"start","gravity":"top"},{"type":"text","text":"DRONE_BUILD_STATUS","weight":"regular","wrap":False,"color":"#111111","flex":1,"size":"sm","margin":"none","align":"end","gravity":"top"}],"flex":1,"spacing":"none","margin":"md"}],"flex":1,"spacing":"none","margin":"md"},{"type":"box","layout":"horizontal","contents":[{"type":"button","action":{"type":"uri","label":"See Changes","uri":"https://a;difj.tw"},"flex":1,"margin":"none","height":"md","style":"primary","color":"#9b9b9b","gravity":"center"}],"flex":1,"spacing":"none","margin":"xxl"}],"flex":1,"spacing":"none","margin":"md"},"styles":{"header":{"backgroundColor":"#FFFFFF","separator":False,"separatorColor":"#FFFFFF"},"hero":{"backgroundColor":"#FFFFFF","separator":False,"separatorColor":"#FFFFFF"},"body":{"backgroundColor":"#FFFFFF","separator":False,"separatorColor":"#FFFFFF"},"footer":{"backgroundColor":"#FFFFFF","separator":False,"separatorColor":"#FFFFFF"}}}
-    with open(FLEX_JSON_FP, "r") as f:
-        flex_dict = json.load(f)
-    print(flex_dict)
-    flex_message = FlexSendMessage(alt_text="flex test", contents=BubbleContainer.new_from_json_dict(flex_dict))
-    line_bot_api.push_message("C5861144e6e0e940170e6bf485601d169", flex_message)
+    drone_repo_name = data["drone_repo_name"] if "drone_repo_name" in data else "-"
+    drone_commit_branch = data["drone_commit_branch"] if "drone_commit_branch" in data else "-"
+    drone_commit_author = data["drone_commit_author"] if "drone_commit_author" in data else "-"
+    drone_commit_message = data["drone_commit_message"] if "drone_commit_message" in data else "-"
+    drone_build_event = data["drone_build_event"] if "drone_build_event" in data else "-"
+    drone_build_status = data["drone_commit_status"] if "drone_commit_status" in data else "-"
+    drone_commit_link = data["drone_commit_link"] if "drone_commit_link" in data else "-"
+    build_status_color = "#33aa55" if drone_build_status.lower() == "success" else "#cc3d33"
+    ci_build_number = data["ci_build_number"] if "ci_build_number" in data else "-"
+
+    template = template_env.get_template(FLEX_JSON_FP)
+    rendered_template = template.render(
+        build_status_color=build_status_color,
+        drone_repo_name=drone_repo_name,
+        drone_commit_branch=drone_commit_branch,
+        drone_commit_author=drone_commit_author,
+        drone_commit_message=drone_commit_message,
+        drone_build_event=drone_build_event,
+        drone_build_status=drone_build_status,
+        drone_commit_link=drone_commit_link,
+        ci_build_number=ci_build_number,
+    )
+
+    dict_template = eval(rendered_template)
+
+    users = ["Ashley", "Wei", "Jack", "Patrick", "Angela", "Leo"]
+    flex_message = FlexSendMessage(alt_text="{} repo 有最新更動！".format(drone_repo_name), contents=BubbleContainer.new_from_json_dict(dict_template))
+    text_message = TextMessage( text="請 *@{}*  負責審 PR !".format(random.choice(users)))
+    line_bot_api.push_message("C5861144e6e0e940170e6bf485601d169", [flex_message, text_message])
+
     return 'OK'
+
+
+
+@handler.add(MessageEvent, message=TextMessage)
+def text_message_handler(event):
+    print("[DEBUG][Event Message]", event.message)
+    if BOT_NAME.lower() in event.message.text:
+        show_menu_handler()
+        
+
+
+def show_menu_handler():
+    print("[DEBUG] use show_menu_handler !!")

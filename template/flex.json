@@ -6,9 +6,9 @@
       "contents": [
         {
           "type": "text",
-          "text": "Git Dev",
+          "text": "Git Dev Notify",
           "weight": "bold",
-          "wrap": false,
+          "wrap": False,
           "color": "#1DB446",
           "flex": 1,
           "size": "sm",
@@ -18,9 +18,9 @@
         },
         {
           "type": "text",
-          "text": "'$DRONE_REPO_NAME'",
+          "text": "{{drone_repo_name}}",
           "weight": "bold",
-          "wrap": false,
+          "wrap": False,
           "color": "#464646",
           "flex": 1,
           "size": "xxl",
@@ -30,9 +30,9 @@
         },
         {
           "type": "text",
-          "text": "'$DRONE_COMMIT_MESSAGE'",
+          "text": "{{drone_commit_message}}'",
           "weight": "regular",
-          "wrap": true,
+          "wrap": True,
           "color": "#aaaaaa",
           "flex": 1,
           "size": "xs",
@@ -57,7 +57,7 @@
                   "type": "text",
                   "text": "Branch",
                   "weight": "regular",
-                  "wrap": false,
+                  "wrap": False,
                   "color": "#555555",
                   "flex": 0,
                   "size": "sm",
@@ -67,9 +67,9 @@
                 },
                 {
                   "type": "text",
-                  "text": "'$DRONE_COMMIT_BRANCH'",
+                  "text": "{{drone_commit_branch}}",
                   "weight": "regular",
-                  "wrap": false,
+                  "wrap": False,
                   "color": "#111111",
                   "flex": 1,
                   "size": "sm",
@@ -90,7 +90,7 @@
                   "type": "text",
                   "text": "Event",
                   "weight": "regular",
-                  "wrap": false,
+                  "wrap": False,
                   "color": "#555555",
                   "flex": 0,
                   "size": "sm",
@@ -100,9 +100,9 @@
                 },
                 {
                   "type": "text",
-                  "text": "'$DRONE_BUILD_EVENT'",
+                  "text": "{{drone_build_event}}",
                   "weight": "regular",
-                  "wrap": false,
+                  "wrap": False,
                   "color": "#111111",
                   "flex": 1,
                   "size": "sm",
@@ -123,7 +123,7 @@
                   "type": "text",
                   "text": "Author",
                   "weight": "regular",
-                  "wrap": false,
+                  "wrap": False,
                   "color": "#555555",
                   "flex": 0,
                   "size": "sm",
@@ -133,9 +133,9 @@
                 },
                 {
                   "type": "text",
-                  "text": "'$DRONE_COMMIT_AUTHOR'",
+                  "text": "{{drone_commit_author}}",
                   "weight": "regular",
-                  "wrap": false,
+                  "wrap": False,
                   "color": "#111111",
                   "flex": 1,
                   "size": "sm",
@@ -156,7 +156,7 @@
                   "type": "text",
                   "text": "Build Number",
                   "weight": "regular",
-                  "wrap": false,
+                  "wrap": False,
                   "color": "#555555",
                   "flex": 1,
                   "size": "sm",
@@ -166,9 +166,9 @@
                 },
                 {
                   "type": "text",
-                  "text": "'$CI_BUILD_NUMBER'",
+                  "text": "{{ci_build_number}}",
                   "weight": "regular",
-                  "wrap": false,
+                  "wrap": False,
                   "color": "#111111",
                   "flex": 1,
                   "size": "sm",
@@ -189,8 +189,8 @@
                   "type": "text",
                   "text": "Build Status",
                   "weight": "regular",
-                  "wrap": false,
-                  "color": "#555555",
+                  "wrap": False,
+                  "color": "#111111",
                   "flex": 1,
                   "size": "sm",
                   "margin": "none",
@@ -199,10 +199,10 @@
                 },
                 {
                   "type": "text",
-                  "text": "'$DRONE_BUILD_STATUS'",
+                  "text": "{{drone_build_status}}",
                   "weight": "regular",
-                  "wrap": false,
-                  "color": "#111111",
+                  "wrap": False,
+                  "color": "{{build_status_color}}",
                   "flex": 1,
                   "size": "sm",
                   "margin": "none",
@@ -228,7 +228,7 @@
               "action": {
                 "type": "uri",
                 "label": "See Changes",
-                "uri": "https://test.jack.is.so.cute.tw"
+                "uri": "{{drone_commit_link}}"
               },
               "flex": 1,
               "margin": "none",
@@ -250,22 +250,22 @@
     "styles": {
       "header": {
         "backgroundColor": "#FFFFFF",
-        "separator": false,
+        "separator": False,
         "separatorColor": "#FFFFFF"
       },
       "hero": {
         "backgroundColor": "#FFFFFF",
-        "separator": false,
+        "separator": False,
         "separatorColor": "#FFFFFF"
       },
       "body": {
         "backgroundColor": "#FFFFFF",
-        "separator": false,
+        "separator": False,
         "separatorColor": "#FFFFFF"
       },
       "footer": {
         "backgroundColor": "#FFFFFF",
-        "separator": false,
+        "separator": False,
         "separatorColor": "#FFFFFF"
       }
     }
