@@ -128,21 +128,27 @@ def show_menu_handler(group_id):
 
 
 def join_repo(user_id, group_id, repo_name):
+    print("[DEBUG] use join_repo")
+    print("[DEBUG][join_repo]", user_id, group_id, repo_name)
+
     if group_id == [(item["name"], item["group_id"]) for item in env["projects"] if item["name"] == repo_name][0][1]:
         user_name = line_bot_api.get_profile(user_id).display_name
         
         collection = MongoClient(env["mongo"]["url"])[env["mongo"]["db"]][env["mongo"]["collection"]]
         repo = collection.find_one({"repo_name": repo_name})
         if len(repo) != 0:
+            print("[DEBUG][join_repo] use update")
             repo["users"].append({
                 "user_name": user_name,
                 "user_id": user_id,
             })
             collection.update(repo)
         else:
+            print("[DEBUG][join_repo] use insert")
             collection.insert({
                 "repo_name": repo_name,
                 "users": [],
             })
     else:
+        print("[DEBUG][join_repo] use else")
         line_bot_api.push_message(group_id, TextMessage(text="你當前的聊天室無法連結 {} 專案！".format(repo_name)))
