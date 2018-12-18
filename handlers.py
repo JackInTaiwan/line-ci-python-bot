@@ -94,12 +94,9 @@ def text_message_handler(event):
         show_menu_handler()
     elif event.message.text.lower() == "groupid":
         try:
-            line_bot_api.reply_message(event.reply_token, event.source.group_id)
-        try:
-            line_bot_api.reply_message(event.reply_token, event.source.groupId)
-        try:
             line_bot_api.reply_message(event.reply_token, event.source.group)
-    print("[DEBUG][Event Message]", event.source.__attribute__)
+        except Exception as e:
+            print("[DEBUG][Event Message]", event.source.__attribute__)
 
 
 
