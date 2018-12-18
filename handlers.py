@@ -96,7 +96,12 @@ def text_message_handler(event):
         try:
             line_bot_api.reply_message(event.reply_token, event.source.group_id)
         except Exception as e:
-            print("[DEBUG][Event Message]", event.source.__attribute__)
+            print(e)
+        try:
+            print(event.source)
+            print(event.source.group_id)
+        except Exception as e:
+            print(e)
 
 
 
