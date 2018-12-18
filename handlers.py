@@ -16,7 +16,7 @@ from linebot.models import (
 
 BOT_NAME = "tool"
 CHANNEL_TOKEN = "TB5yHtCgFd4bpv74W5C5cBwPVHwjST5/6NntK68od4OTbL2xKqcFja76Yb86BkVtd9AXK431eE7Gs3AfS4yQp573YGXc5U+Llq4g0NKZq5AWCbtoUe3M597QXJfc63ow8fggSRXSp/84MQadzhxeWQdB04t89/1O/w1cDnyilFU="
-CHANNEL_SECRET = "c80566dca51b314332768ca929117904"
+CHANNEL_SECRET = "db71e5f4bcfec8e3b0a2f75df3dd9755"
 FLEX_JSON_FP = "./template/flex.json"
 
 line_bot_api = LineBotApi(CHANNEL_TOKEN)
@@ -38,9 +38,11 @@ def callback():
     try:
         handler.handle(body, signature)
     except Exception as e:
+        print(e)
         abort(400)
 
     return 'OK'
+
 
 
 @app.route("/ci", methods=["POST"])
