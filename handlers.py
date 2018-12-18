@@ -147,7 +147,10 @@ def join_repo(user_id, group_id, repo_name):
             print("[DEBUG][join_repo] use insert")
             collection.insert({
                 "repo_name": repo_name,
-                "users": [],
+                "users": [{
+                "user_name": user_name,
+                "user_id": user_id,
+                }],
             })
     else:
         print("[DEBUG][join_repo] use else")
