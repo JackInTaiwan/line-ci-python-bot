@@ -90,11 +90,10 @@ def ci_post():
 
 @handler.add(MessageEvent, message=TextMessage)
 def text_message_handler(event):
-    print("[DEBUG][Event Message]", event.source.__dict__)
     if BOT_NAME.lower() == event.message.text.lower():
         show_menu_handler()
     elif event.message.text.lower() == "groupid":
-        line_bot_api.reply_message(event.reply_token, event.source.id)
+        line_bot_api.reply_message(event.reply_token, TextMessage(text=event.source.group_id))
 
 
 
@@ -107,6 +106,8 @@ def show_menu_handler():
     template = template_env.get_template(PROJECTS_FLEX_JSON_FP)
     rendered_template = template.render(project_name="line-techpulse")
     dict_template = eval(rendered_template)
+    print("[DEBUG][dict_template]", dict_template)
+    app.logger.info(dict_template)
 
-    flex_message = FlexSendMessage(alt_text="請選擇專案加入", contents=[BubbleContainer.new_from_json_dict(dict_template),])
+    flex_message = FlexSendMessage(alt_text="請選擇專案加入", contents=BubbleContainer.new_from_json_dict(dict_template))
     line_bot_api.push_message(GROUP_ID, flex_message)
