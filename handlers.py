@@ -141,11 +141,15 @@ def join_repo(user_id, group_id, repo_name):
         repo = collection.find_one({"repo_name": repo_name})
         if repo != None:
             print("[DEBUG][join_repo] use update")
-            repo["users"].append({
-                "user_name": user_name,
-                "user_id": user_id,
-            })
-            collection.update(repo)
+            if user_id not in [ user["user_id"] for user in repo["users"]]:
+                repo["users"].append({
+                    "user_name": user_name,
+                    "user_id": user_id,
+                })
+                collection.update(repo)
+                line_bot_api.push_message(group_id, TextMessage(text="{} 成功加入 {} 專案了！".format(user_name, repo_name)))
+            else:
+                line_bot_api.push_message(group_id, TextMessage(text="{} 已經加入 {} 專案過了！".format(user_name, repo_name)))
         else:
             print("[DEBUG][join_repo] use insert")
             collection.insert({
@@ -155,6 +159,7 @@ def join_repo(user_id, group_id, repo_name):
                 "user_id": user_id,
                 }],
             })
+            line_bot_api.push_message(group_id, TextMessage(text="{} 成功加入 {} 專案了！".format(user_name, repo_name)))
     else:
         print("[DEBUG][join_repo] use else")
         line_bot_api.push_message(group_id, TextMessage(text="你當前的聊天室無法連結 {} 專案！".format(repo_name)))
