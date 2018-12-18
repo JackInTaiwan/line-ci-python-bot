@@ -9,6 +9,7 @@ from linebot.models import (
     FlexSendMessage,
     TextMessage,
     BubbleContainer,
+    CarouselContainer,
 )
 
 
@@ -109,5 +110,5 @@ def show_menu_handler():
     print("[DEBUG][dict_template]", dict_template)
     app.logger.info(dict_template)
 
-    flex_message = FlexSendMessage(alt_text="請選擇專案加入", contents=BubbleContainer.new_from_json_dict(dict_template))
+    flex_message = FlexSendMessage(alt_text="請選擇專案加入", contents=CarouselContainer([BubbleContainer.new_from_json_dict(dict_template),]))
     line_bot_api.push_message(GROUP_ID, flex_message)
