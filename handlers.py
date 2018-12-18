@@ -1,8 +1,10 @@
 from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
 from jinja2 import Environment, FileSystemLoader, select_autoescape
+from pymongo import MongoClient
 import random
 import json
+import re
 
 from linebot.models import (
     MessageEvent,
@@ -98,8 +100,11 @@ def ci_post():
 
 @handler.add(MessageEvent, message=TextMessage)
 def text_message_handler(event):
-    if BOT_NAME.lower() == event.message.text.lower():
+    if event.message.text.lower() == BOT_NAME.lower():
         show_menu_handler(event.source.group_id)
+    elif re.findall("我要加入.*，嗷！", event.message.text.lower()) != []:
+        repo_name = event.message.text[4:-3]
+        join_repo(event.source.user_id, event.source.group_id, repo_name)
     elif event.message.text.lower() == "groupid":
         line_bot_api.reply_message(event.reply_token, TextMessage(text=event.source.group_id))
 
@@ -119,3 +124,25 @@ def show_menu_handler(group_id):
 
     flex_message = FlexSendMessage(alt_text="請選擇專案加入", contents=CarouselContainer(carousel_list))
     line_bot_api.push_message(group_id, flex_message)
+
+
+
+def join_repo(user_id, group_id, repo_name):
+    if group_id == [(item["name"], item["group_id"]) for item in env["projects"] if item["name"] == repo_name][0][1]:
+        user_name = line_bot_api.get_profile(user_id).display_name
+        
+        collection = MongoClient(env["mongo"]["url"])[env["mongo"]["db"]][env["mongo"]["collection"]]
+        repo = collection.find_one({"repo_name": repo_name})
+        if len(repo) != 0:
+            repo["users"].append({
+                "user_name": user_name,
+                "user_id": user_id,
+            })
+            collection.update(repo)
+        else:
+            collection.insert({
+                "repo_name": repo_name,
+                "users": [],
+            })
+    else:
+        line_bot_api.push_message(group_id, TextMessage(text="你當前的聊天室無法連結 {} 專案！".format(repo_name)))
