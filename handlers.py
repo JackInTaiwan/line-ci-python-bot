@@ -70,7 +70,7 @@ def ci_post():
     drone_commit_link = data["drone_commit_link"] if "drone_commit_link" in data else "-"
     build_status_color = "#33aa55" if drone_build_status.lower() == "success" else "#cc3d33"
     ci_build_number = data["ci_build_number"] if "ci_build_number" in data else "-"
-
+    
     template = template_env.get_template(FLEX_JSON_FP)
     rendered_template = template.render(
         build_status_color=build_status_color,
@@ -87,9 +87,10 @@ def ci_post():
     dict_template = eval(rendered_template)
 
     users = ["Ashley", "Wei", "Jack", "Patrick", "Angela", "Leo"]
+    group_id = [(item["name"], item["group_id"]) for item in env["projects"] if item["name"] == drone_repo_name][0][1]
     flex_message = FlexSendMessage(alt_text="{} repo 有最新更動！".format(drone_repo_name), contents=BubbleContainer.new_from_json_dict(dict_template))
     text_message = TextMessage( text="請 *@{}*  負責審 PR !".format(random.choice(users)))
-    line_bot_api.push_message(GROUP_ID, [flex_message, text_message])
+    line_bot_api.push_message(group_id, [flex_message, text_message])
 
     return 'OK'
 
@@ -101,6 +102,7 @@ def text_message_handler(event):
         show_menu_handler(event.source.group_id)
     elif event.message.text.lower() == "groupid":
         line_bot_api.reply_message(event.reply_token, TextMessage(text=event.source.group_id))
+
 
 
 

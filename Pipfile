@@ -10,6 +10,7 @@ flask = "==1.0.2"
 line-bot-sdk = "*"
 pipenv = "*"
 jinja2 = "*"
+pymongo = "==3.7.2"
 
 [requires]
 python_version = "*"
