@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 import random
@@ -23,6 +23,24 @@ line_bot_api = LineBotApi(CHANNEL_TOKEN)
 handler = WebhookHandler(CHANNEL_SECRET)
 app = Flask(__name__)
 
+
+
+@app.route("/callback", methods=["POST"])
+def callback():
+    # get X-Line-Signature header value
+    signature = request.headers['X-Line-Signature']
+
+    # get request body as text
+    body = request.get_data(as_text=True)
+    app.logger.info("Request body: " + body)
+
+    # handle webhook body
+    try:
+        handler.handle(body, signature)
+    except Exception as e:
+        abort(400)
+
+    return 'OK'
 
 
 @app.route("/ci", methods=["POST"])
