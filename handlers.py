@@ -92,7 +92,7 @@ def text_message_handler(event):
     if BOT_NAME.lower() == event.message.text.lower():
         show_menu_handler()
     elif event.message.text.lower() == "groupid":
-        line_bot_api.reply_message(event.reply_token, event.source.groupId)
+        line_bot_api.reply_message(event.reply_token, event.source["groupId"])
 
 
 
