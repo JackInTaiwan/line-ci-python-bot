@@ -90,7 +90,6 @@ def ci_post():
 
 @handler.add(MessageEvent, message=TextMessage)
 def text_message_handler(event):
-    print("[DEBUG][Event Message]", event.source.__attrs__)
     print("[DEBUG][Event Message]", event.source.__dict)
     if BOT_NAME.lower() == event.message.text.lower():
         show_menu_handler()
