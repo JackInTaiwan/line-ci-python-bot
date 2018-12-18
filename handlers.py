@@ -88,10 +88,12 @@ def ci_post():
 
 @handler.add(MessageEvent, message=TextMessage)
 def text_message_handler(event):
-    print("[DEBUG][Event Message]", event.message)
-    if BOT_NAME.lower() in event.message.text:
+    print("[DEBUG][Event Message]", event)
+    if BOT_NAME.lower() == event.message.text.lower():
         show_menu_handler()
-        
+    elif event.message.text.lower() == "groupid":
+        line_bot_api.reply_message(event.reply_token, event.group_id)
+
 
 
 def show_menu_handler():
