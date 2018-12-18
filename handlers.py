@@ -17,7 +17,9 @@ from linebot.models import (
 BOT_NAME = "tool"
 CHANNEL_TOKEN = "TB5yHtCgFd4bpv74W5C5cBwPVHwjST5/6NntK68od4OTbL2xKqcFja76Yb86BkVtd9AXK431eE7Gs3AfS4yQp573YGXc5U+Llq4g0NKZq5AWCbtoUe3M597QXJfc63ow8fggSRXSp/84MQadzhxeWQdB04t89/1O/w1cDnyilFU="
 CHANNEL_SECRET = "db71e5f4bcfec8e3b0a2f75df3dd9755"
+GROUP_ID = "C5861144e6e0e940170e6bf485601d169"
 FLEX_JSON_FP = "./template/flex.json"
+PROJECTS_FLEX_JSON_FP = "./template/projects_flex.json"
 
 line_bot_api = LineBotApi(CHANNEL_TOKEN)
 handler = WebhookHandler(CHANNEL_SECRET)
@@ -80,7 +82,7 @@ def ci_post():
     users = ["Ashley", "Wei", "Jack", "Patrick", "Angela", "Leo"]
     flex_message = FlexSendMessage(alt_text="{} repo 有最新更動！".format(drone_repo_name), contents=BubbleContainer.new_from_json_dict(dict_template))
     text_message = TextMessage( text="請 *@{}*  負責審 PR !".format(random.choice(users)))
-    line_bot_api.push_message("C5861144e6e0e940170e6bf485601d169", [flex_message, text_message])
+    line_bot_api.push_message(GROUP_ID, [flex_message, text_message])
 
     return 'OK'
 
@@ -98,3 +100,13 @@ def text_message_handler(event):
 
 def show_menu_handler():
     print("[DEBUG] use show_menu_handler !!")
+    template_env = Environment(
+        loader=FileSystemLoader('./'),
+        autoescape=select_autoescape(['json'])
+    )
+    template = template_env.get_template(PROJECTS_FLEX_JSON_FP)
+    rendered_template = template.render(project_name="line-techpulse")
+    dict_template = eval(rendered_template)
+
+    flex_message = FlexSendMessage(alt_text="請選擇專案加入", contents=[BubbleContainer.new_from_json_dict(dict_template),])
+    line_bot_api.push_message(GROUP_ID, flex_message)
