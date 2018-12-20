@@ -95,7 +95,10 @@ def ci_post():
     users = list(repo["users"])
     group_id = [(item["name"], item["group_id"]) for item in env["projects"] if item["name"] == drone_repo_name][0][1]
     flex_message = FlexSendMessage(alt_text="{} repo 有最新更動！".format(drone_repo_name), contents=BubbleContainer.new_from_json_dict(dict_template))
-    text_message = TextMessage( text="請 *@{}*  負責審 PR !".format(random.choice(users)["user_name"]))
+    try:
+        text_message = TextMessage(text="請 *@{}*  負責審 PR !".format(random.choice(users)["user_name"]))
+    except:
+        text_message = TextMessage(text="孤單寂寞，沒有人關心我，嗚...")
     line_bot_api.push_message(group_id, [flex_message, text_message])
 
     return 'OK'
