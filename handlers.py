@@ -87,6 +87,7 @@ def ci_post():
     )
 
     dict_template = eval(rendered_template)
+    print("[DEBUG][dict_template]", dict_template)
 
     ### Random Pick PR Reviewer
     collection = MongoClient(env["mongo"]["url"])[env["mongo"]["db"]][env["mongo"]["collection"]]

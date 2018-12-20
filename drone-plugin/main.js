@@ -19,7 +19,7 @@
             'drone_commit_branch':DRONE_COMMIT_BRANCH,
             'drone_commit_author':DRONE_COMMIT_AUTHOR,
             'drone_commit_message':DRONE_COMMIT_MESSAGE,
-            'drone_commit_buildevent':DRONE_BUILD_EVENT,
+            'drone_build_event':DRONE_BUILD_EVENT,
             'drone_commit_status':DRONE_BUILD_STATUS,
             'drone_commit_link':DRONE_COMMIT_LINK,
             'ci_build_number':CI_BUILD_NUMBER
