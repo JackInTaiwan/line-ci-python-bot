@@ -20,7 +20,7 @@
           "type": "text",
           "text": "{{drone_repo_name}}",
           "weight": "bold",
-          "wrap": False,
+          "wrap": True,
           "color": "#464646",
           "flex": 1,
           "size": "xxl",
