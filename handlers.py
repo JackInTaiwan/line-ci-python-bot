@@ -117,6 +117,8 @@ def text_message_handler(event):
         join_repo(event.source.user_id, event.source.group_id, repo_name)
     elif event.message.text.lower() == "groupid":
         line_bot_api.reply_message(event.reply_token, TextMessage(text=event.source.group_id))
+    elif event.message.text.lower() == "userid":
+        line_bot_api.reply_message(event.reply_token, TextMessage(text=event.source.user_id))
 
 
 
