@@ -134,6 +134,7 @@ def show_menu_handler(group_id):
             rendered_template = template.render(project_name=proj["name"])
             dict_template = eval(rendered_template)
             carousel_list.append(BubbleContainer.new_from_json_dict(dict_template))
+
     template_opera = template_env.get_template(PROJECT_OPERA_FLEX_JSON_FP)
     dict_template_opera = eval(template_opera.render())
     carousel_list.append(BubbleContainer.new_from_json_dict(dict_template_opera))
