@@ -135,7 +135,8 @@ def show_menu_handler(group_id):
             carousel_list.append(BubbleContainer.new_from_json_dict(dict_template))
     template_2 = template_env.get_template("./template/flex_test.json")
     dict_template_2 = eval(template_2.render())
-    flex_message = FlexSendMessage(alt_text="請選擇專案加入", contents=CarouselContainer(carousel_list + [dict_template_2]))
+    carousel_list.append(BubbleContainer.new_from_json_dict(dict_template_2))
+    flex_message = FlexSendMessage(alt_text="請選擇專案加入", contents=CarouselContainer(carousel_list))
     line_bot_api.push_message(group_id, flex_message)
 
 
