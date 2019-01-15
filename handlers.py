@@ -31,8 +31,9 @@ BOT_NAME = env["bot_name"]
 CHANNEL_TOKEN = env["channel_token"]
 CHANNEL_SECRET = env["channel_secret"]
 
-FLEX_JSON_FP = "./template/flex.json"
+FLEX_JSON_FP = "./template/notify_flex.json"
 PROJECTS_FLEX_JSON_FP = "./template/projects_flex.json"
+PROJECT_OPERA_FLEX_JSON_FP = "./template/project_opera_flex.json"
 
 line_bot_api = LineBotApi(CHANNEL_TOKEN)
 handler = WebhookHandler(CHANNEL_SECRET)
@@ -123,7 +124,6 @@ def text_message_handler(event):
 
 
 
-
 def show_menu_handler(group_id):
     print("[DEBUG] use show_menu_handler")
 
@@ -134,7 +134,10 @@ def show_menu_handler(group_id):
             rendered_template = template.render(project_name=proj["name"])
             dict_template = eval(rendered_template)
             carousel_list.append(BubbleContainer.new_from_json_dict(dict_template))
-
+    template_opera = template_env.get_template(PROJECT_OPERA_FLEX_JSON_FP)
+    dict_template_opera = eval(template_opera.render())
+    carousel_list.append(BubbleContainer.new_from_json_dict(dict_template_opera))
+    
     flex_message = FlexSendMessage(alt_text="請選擇專案加入", contents=CarouselContainer(carousel_list))
     line_bot_api.push_message(group_id, flex_message)
 
@@ -173,3 +176,8 @@ def join_repo(user_id, group_id, repo_name):
     else:
         print("[DEBUG][join_repo] use else")
         line_bot_api.push_message(group_id, TextMessage(text="你當前的聊天室無法連結 {} 專案！".format(repo_name)))
+
+
+
+if __name__ == "__main__":
+    show_menu_handler("123")

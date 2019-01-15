@@ -1,0 +1,53 @@
+{
+    "type": "bubble",
+    "direction": "ltr",
+    "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+        {
+        "type": "box",
+        "layout": "vertical",
+        "spacing": "md",
+        "contents": [
+            {
+            "type": "text",
+            "text": "{{project_name}}",
+            "size": "lg",
+            "align": "center",
+            "weight": "bold"
+            }
+        ]
+        }
+    ]
+    },
+    "footer": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+        {
+        "type": "separator",
+        "color": "#A8A1A1"
+        },
+        {
+        "type": "button",
+        "action": {
+            "type": "message",
+            "label": "Create Projects",
+            "text": "[[[+yourNewProjectName]]]"
+        },
+        "height": "sm"
+        },
+        {
+            "type": "button",
+            "action": {
+              "type": "message",
+              "label": "Import Projects",
+              "text": "[[[>importedProjectToken]]]"
+            },
+            "height": "sm",
+            "style": "link"
+        }
+    ]
+    }
+}
