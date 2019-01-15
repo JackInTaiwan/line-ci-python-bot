@@ -123,7 +123,6 @@ def text_message_handler(event):
 
 
 
-
 def show_menu_handler(group_id):
     print("[DEBUG] use show_menu_handler")
 
@@ -134,8 +133,9 @@ def show_menu_handler(group_id):
             rendered_template = template.render(project_name=proj["name"])
             dict_template = eval(rendered_template)
             carousel_list.append(BubbleContainer.new_from_json_dict(dict_template))
-
-    flex_message = FlexSendMessage(alt_text="請選擇專案加入", contents=CarouselContainer(carousel_list))
+    template_2 = template_env.get_template("./template/flex_test.json")
+    dict_template_2 = eval(template_2)
+    flex_message = FlexSendMessage(alt_text="請選擇專案加入", contents=CarouselContainer(carousel_list + [dict_template_2]))
     line_bot_api.push_message(group_id, flex_message)
 
 

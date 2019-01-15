@@ -1,0 +1,28 @@
+{
+    "type": "bubble",
+    "direction": "ltr",
+    "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+        {
+        "type": "box",
+        "layout": "vertical",
+        "spacing": "md",
+        "contents": [
+            {
+            "type": "text",
+            "text": "{{project_name}}",
+            "size": "lg",
+            "align": "center",
+            "weight": "bold"
+            }
+        ]
+        }
+    ]
+    },
+    "footer": {
+    "type": "box",
+    "layout": "vertical"
+    }
+}
