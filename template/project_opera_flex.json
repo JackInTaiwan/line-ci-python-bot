@@ -12,7 +12,7 @@
         "contents": [
             {
             "type": "text",
-            "text": "{{project_name}}",
+            "text": "其他操作",
             "size": "lg",
             "align": "center",
             "weight": "bold"
