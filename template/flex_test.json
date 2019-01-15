@@ -20,9 +20,5 @@
         ]
         }
     ]
-    },
-    "footer": {
-    "type": "box",
-    "layout": "vertical"
     }
 }
