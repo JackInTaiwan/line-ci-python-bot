@@ -12,7 +12,7 @@
         "contents": [
             {
             "type": "text",
-            "text": "{{project_name}}",
+            "text": "project_name",
             "size": "lg",
             "align": "center",
             "weight": "bold"
@@ -34,7 +34,7 @@
             "action": {
               "type": "message",
               "label": "退出",
-              "text": "我要退出{{project_name}}，嗚嗚..."
+              "text": "我要退出project_name，嗚嗚..."
             },
             "height": "sm",
             "style": "link"
