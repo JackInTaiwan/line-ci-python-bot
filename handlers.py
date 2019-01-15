@@ -134,8 +134,11 @@ def show_menu_handler(group_id):
             dict_template = eval(rendered_template)
             carousel_list.append(BubbleContainer.new_from_json_dict(dict_template))
     template_2 = template_env.get_template("./template/flex_test.json")
+    print(template_2)
     dict_template_2 = eval(template_2.render())
+    print(dict_template_2)
     carousel_list.append(BubbleContainer.new_from_json_dict(dict_template_2))
+    print(carousel_list)
     flex_message = FlexSendMessage(alt_text="請選擇專案加入", contents=CarouselContainer(carousel_list))
     line_bot_api.push_message(group_id, flex_message)
 
@@ -174,3 +177,8 @@ def join_repo(user_id, group_id, repo_name):
     else:
         print("[DEBUG][join_repo] use else")
         line_bot_api.push_message(group_id, TextMessage(text="你當前的聊天室無法連結 {} 專案！".format(repo_name)))
+
+
+
+if __name__ == "__main__":
+    show_menu_handler("123")
